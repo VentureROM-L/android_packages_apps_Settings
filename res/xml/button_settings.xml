@@ -61,6 +61,7 @@
             android:summary="@string/swap_volume_buttons_summary" />
     </PreferenceCategory>
 
+<<<<<<< HEAD
     <PreferenceCategory
         android:key="recents"
         android:title="@string/recents_category">
@@ -72,3 +73,6 @@
             android:defaultValue="true" />
     </PreferenceCategory>
 </PreferenceScreen>
+=======
+</PreferenceScreen>
+>>>>>>> 9b45fb2... Buttons: Allow disabling hard navigation keys
