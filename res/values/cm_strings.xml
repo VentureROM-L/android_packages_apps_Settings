@@ -465,6 +465,9 @@
     <string name="sdcard_media_format_final_desc" product="default">Erase the SD card, deleting all files stored there? You can\'t reverse this action!</string>
     <string name="sdcard_media_format_gesture_explanation" product="default">You need to draw your unlock pattern to confirm that you want to erase the SD card.</string>
 
+    <!-- Rescan storage -->
+    <string name="storage_rescan_media">Rescan media for the storage volume</string>
+
     <!-- Voice Wakeup -->
     <string name="voice_wakeup_settings_title">Voice wakeup</string>
     <string name="voice_wakeup_retrain_title">Retrain your voice</string>
