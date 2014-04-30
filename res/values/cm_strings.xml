@@ -434,6 +434,9 @@
 
     <string name="settings_reset_button">Reset</string>
 
+    <!-- Bluetooth settings.  A checkbox to set if we should accept all the file types regardless of their presence in MIME type whitelist -->
+    <string name="bluetooth_accept_all_files">Accept all file types</string>
+
     <!-- Title of dialog asking user to confirm before enabling UMS. [CHAR LIMIT=48] -->
     <string name="usb_settings_enable_ums_title">Enable USB storage?</string>
     <!-- Message of dialog asking user to confirm before enabling UMS. [CHAR LIMIT=NONE] -->
