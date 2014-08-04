@@ -138,6 +138,7 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
 
         // Force Navigation bar related options
         mDisableNavigationKeys = (SwitchPreference) findPreference(DISABLE_NAV_KEYS);
+
         mNavigationPreferencesCat = (PreferenceCategory) findPreference(CATEGORY_NAVBAR);
 
         // Only visible on devices that does not have a navigation bar already,
@@ -155,6 +156,8 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
             } else {
                 // Remove keys that can be provided by the navbar
                 updateDisableNavkeysOption();
+                mNavigationPreferencesCat.setEnabled(mDisableNavigationKeys.isChecked());
+                updateDisableNavkeysCategories(mDisableNavigationKeys.isChecked());
             }
         } else {
             prefScreen.removePreference(mDisableNavigationKeys);
@@ -361,12 +364,16 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
                 Settings.System.DEV_FORCE_SHOW_NAVBAR, 0) != 0;
 
         mDisableNavigationKeys.setChecked(enabled);
+    }
 
+    private void updateDisableNavkeysCategories(boolean navbarEnabled) {
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
         /* Disable hw-key options if they're disabled */
         final PreferenceCategory homeCategory =
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_HOME);
+        final PreferenceCategory backCategory =
+                (PreferenceCategory) prefScreen.findPreference(CATEGORY_BACK);
         final PreferenceCategory menuCategory =
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_MENU);
         final PreferenceCategory assistCategory =
@@ -379,22 +386,25 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         /* Toggle backlight control depending on navbar state, force it to
            off if enabling */
         if (backlight != null) {
-            backlight.setEnabled(!enabled);
+            backlight.setEnabled(!navbarEnabled);
             backlight.updateSummary();
         }
 
         /* Toggle hardkey control availability depending on navbar state */
         if (homeCategory != null) {
-            homeCategory.setEnabled(!enabled);
+            homeCategory.setEnabled(!navbarEnabled);
+        }
+        if (backCategory != null) {
+            backCategory.setEnabled(!navbarEnabled);
         }
         if (menuCategory != null) {
-            menuCategory.setEnabled(!enabled);
+            menuCategory.setEnabled(!navbarEnabled);
         }
         if (assistCategory != null) {
-            assistCategory.setEnabled(!enabled);
+            assistCategory.setEnabled(!navbarEnabled);
         }
         if (appSwitchCategory != null) {
-            appSwitchCategory.setEnabled(!enabled);
+            appSwitchCategory.setEnabled(!navbarEnabled);
         }
     }
 
@@ -412,12 +422,16 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference == mDisableNavigationKeys) {
             mDisableNavigationKeys.setEnabled(false);
+            mNavigationPreferencesCat.setEnabled(false);
             writeDisableNavkeysOption(getActivity(), mDisableNavigationKeys.isChecked());
             updateDisableNavkeysOption();
+            updateDisableNavkeysCategories(true);
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     mDisableNavigationKeys.setEnabled(true);
+                    mNavigationPreferencesCat.setEnabled(mDisableNavigationKeys.isChecked());
+                    updateDisableNavkeysCategories(mDisableNavigationKeys.isChecked());
                 }
             }, 1000);
         } else if (preference == mPowerEndCall) {
