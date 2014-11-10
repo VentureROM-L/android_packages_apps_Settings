@@ -18,4 +18,10 @@
     <string name="mod_version">VentureROM version</string>
     <string name="mod_version_default">Unknown</string>
 
+    <!-- Statusbar native battery percent -->
+    <string name="general_string">General</string>
+    <string name="status_bar_title">Status bar</string>
+    <string name="status_bar_native_battery_percentage_title">Battery percentage</string>
+    <string name="status_bar_native_battery_percentage_summary">Show hidden percentage</string>
+
 </resources>
