@@ -147,6 +147,10 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         }
 
         if (hasHomeKey) {
+            if (!res.getBoolean(R.bool.config_show_homeWake)) {
+                homeCategory.removePreference(findPreference(Settings.System.HOME_WAKE_SCREEN));
+            }
+
             int defaultLongPressAction = res.getInteger(
                     com.android.internal.R.integer.config_longPressOnHomeBehavior);
             if (defaultLongPressAction < ACTION_NOTHING ||
