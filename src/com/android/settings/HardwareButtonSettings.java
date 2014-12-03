@@ -244,6 +244,23 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
                 (incallHomeBehavior == Settings.Secure.RING_HOME_BUTTON_BEHAVIOR_ANSWER);
             mHomeAnswerCall.setChecked(homeButtonAnswersCall);
         }
+
+    }
+
+    private CheckBoxPreference initCheckBox(String key, boolean checked) {
+        CheckBoxPreference checkBoxPreference = (CheckBoxPreference) getPreferenceManager()
+                .findPreference(key);
+        if (checkBoxPreference != null) {
+            checkBoxPreference.setChecked(checked);
+            checkBoxPreference.setOnPreferenceChangeListener(this);
+        }
+        return checkBoxPreference;
+    }
+
+    private void handleCheckBoxChange(CheckBoxPreference pref, Object newValue, String setting) {
+        Boolean value = (Boolean) newValue;
+        int intValue = (value) ? 1 : 0;
+        Settings.System.putInt(getContentResolver(), setting, intValue);
     }
 
     private SwitchPreference initSwitch(String key, boolean checked) {
@@ -273,7 +290,6 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
     private void handleActionListChange(ListPreference pref, Object newValue, String setting) {
         String value = (String) newValue;
         int index = pref.findIndexOfValue(value);
-
         pref.setSummary(pref.getEntries()[index]);
         Settings.System.putInt(getContentResolver(), setting, Integer.valueOf(value));
     }
