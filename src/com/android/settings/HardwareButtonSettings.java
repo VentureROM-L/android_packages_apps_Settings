@@ -24,12 +24,12 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.Handler;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.provider.Settings;
 
 import android.util.Log;
@@ -92,9 +92,9 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
     private ListPreference mHomeDoubleTapAction;
     private ListPreference mMenuPressAction;
     private ListPreference mMenuLongPressAction;
-    private CheckBoxPreference mDisableNavigationKeys;
-    private CheckBoxPreference mPowerEndCall;
-    private CheckBoxPreference mHomeAnswerCall;
+    private SwitchPreference mDisableNavigationKeys;
+    private SwitchPreference mPowerEndCall;
+    private SwitchPreference mHomeAnswerCall;
 
     private PreferenceCategory mNavigationPreferencesCat;
 
@@ -127,15 +127,15 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_MENU);
 
         // Power button ends calls.
-        mPowerEndCall = (CheckBoxPreference) findPreference(KEY_POWER_END_CALL);
+        mPowerEndCall = (SwitchPreference) findPreference(KEY_POWER_END_CALL);
 
         // Home button answers calls.
-        mHomeAnswerCall = (CheckBoxPreference) findPreference(KEY_HOME_ANSWER_CALL);
+        mHomeAnswerCall = (SwitchPreference) findPreference(KEY_HOME_ANSWER_CALL);
 
         mHandler = new Handler();
 
         // Force Navigation bar related options
-        mDisableNavigationKeys = (CheckBoxPreference) findPreference(DISABLE_NAV_KEYS);
+        mDisableNavigationKeys = (SwitchPreference) findPreference(DISABLE_NAV_KEYS);
 
         // Only visible on devices that does not have a navigation bar already,
         // and don't even try unless the existing keys can be disabled
@@ -244,6 +244,22 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
                 (incallHomeBehavior == Settings.Secure.RING_HOME_BUTTON_BEHAVIOR_ANSWER);
             mHomeAnswerCall.setChecked(homeButtonAnswersCall);
         }
+    }
+
+    private SwitchPreference initSwitch(String key, boolean checked) {
+        SwitchPreference switchPreference = (SwitchPreference) getPreferenceManager()
+                .findPreference(key);
+        if (switchPreference != null) {
+            switchPreference.setChecked(checked);
+            switchPreference.setOnPreferenceChangeListener(this);
+        }
+        return switchPreference;
+    }
+
+    private void handleSwitchChange(SwitchPreference pref, Object newValue, String setting) {
+        Boolean value = (Boolean) newValue;
+        int intValue = (value) ? 1 : 0;
+        Settings.System.putInt(getContentResolver(), setting, intValue);
     }
 
     private ListPreference initActionList(String key, int value) {

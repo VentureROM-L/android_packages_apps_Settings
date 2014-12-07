@@ -27,14 +27,13 @@
         android:key="power_key"
         android:title="@string/hardware_keys_power_key_title" >
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="power_end_call"
             android:title="@string/power_end_call_title"
             android:summary="@string/power_end_call_summary"
             android:persistent="false"/>
 
     </PreferenceCategory>
-
 
     <PreferenceCategory
         android:key="home_key"
