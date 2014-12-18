@@ -54,15 +54,10 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
     private static final String KEY_HOME_DOUBLE_TAP = "hardware_keys_home_double_tap";
     private static final String KEY_MENU_PRESS = "hardware_keys_menu_press";
     private static final String KEY_MENU_LONG_PRESS = "hardware_keys_menu_long_press";
-<<<<<<< HEAD:src/com/android/settings/HardwareButtonSettings.java
-=======
     private static final String KEY_ASSIST_PRESS = "hardware_keys_assist_press";
     private static final String KEY_ASSIST_LONG_PRESS = "hardware_keys_assist_long_press";
     private static final String KEY_APP_SWITCH_PRESS = "hardware_keys_app_switch_press";
     private static final String KEY_APP_SWITCH_LONG_PRESS = "hardware_keys_app_switch_long_press";
-    private static final String KEY_VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
-    private static final String KEY_SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
->>>>>>> 6291048... Forward port Search button configuration:src/com/android/settings/ButtonSettings.java
     private static final String DISABLE_NAV_KEYS = "disable_nav_keys";
     private static final String KEY_POWER_END_CALL = "power_end_call";
     private static final String KEY_HOME_ANSWER_CALL = "home_answer_call";
@@ -103,15 +98,10 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
     private ListPreference mHomeDoubleTapAction;
     private ListPreference mMenuPressAction;
     private ListPreference mMenuLongPressAction;
-<<<<<<< HEAD:src/com/android/settings/HardwareButtonSettings.java
-=======
     private ListPreference mAssistPressAction;
     private ListPreference mAssistLongPressAction;
     private ListPreference mAppSwitchPressAction;
     private ListPreference mAppSwitchLongPressAction;
-    private ListPreference mVolumeKeyCursorControl;
-    private SwitchPreference mSwapVolumeButtons;
->>>>>>> 6291048... Forward port Search button configuration:src/com/android/settings/ButtonSettings.java
     private SwitchPreference mDisableNavigationKeys;
     private SwitchPreference mPowerEndCall;
     private SwitchPreference mHomeAnswerCall;
@@ -137,6 +127,7 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         final boolean hasHomeKey = (deviceKeys & KEY_MASK_HOME) != 0;
         final boolean hasMenuKey = (deviceKeys & KEY_MASK_MENU) != 0;
         final boolean hasAssistKey = (deviceKeys & KEY_MASK_ASSIST) != 0;
+        final boolean hasAppSwitchKey = (deviceKeys & KEY_MASK_APP_SWITCH) != 0;
 
         boolean hasAnyBindableKey = false;
         final PreferenceCategory powerCategory =
@@ -145,15 +136,10 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_HOME);
         final PreferenceCategory menuCategory =
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_MENU);
-<<<<<<< HEAD:src/com/android/settings/HardwareButtonSettings.java
-=======
         final PreferenceCategory assistCategory =
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_ASSIST);
         final PreferenceCategory appSwitchCategory =
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_APPSWITCH);
-        final PreferenceCategory volumeCategory =
-                (PreferenceCategory) prefScreen.findPreference(CATEGORY_VOLUME);
->>>>>>> 6291048... Forward port Search button configuration:src/com/android/settings/ButtonSettings.java
 
         // Power button ends calls.
         mPowerEndCall = (SwitchPreference) findPreference(KEY_POWER_END_CALL);
@@ -379,8 +365,6 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
             handleActionListChange(mMenuLongPressAction, newValue,
                     Settings.System.KEY_MENU_LONG_PRESS_ACTION);
             return true;
-<<<<<<< HEAD:src/com/android/settings/HardwareButtonSettings.java
-=======
         } else if (preference == mAssistPressAction) {
             handleActionListChange(mAssistPressAction, newValue,
                     Settings.System.KEY_ASSIST_ACTION);
