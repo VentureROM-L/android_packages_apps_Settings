@@ -266,6 +266,7 @@
     <string name="block_notifications_title">Filter notifications</string>
     <string name="no_filters_title">No filters set</string>
     <string name="app_ops_ignored_count">Denied <xliff:g id="count" example="2 times">%s</xliff:g></string>
+    <string name="model_name">Model name</string>
 
     <!--- Tap To Wake -->
     <string name="double_tap_to_wake_title">Double-tap to wake</string>
