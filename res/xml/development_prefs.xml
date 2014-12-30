@@ -125,8 +125,8 @@
 
        <SwitchPreference
             android:key="wifi_allow_scan_with_traffic"
-            android:title="@string/wifi_allow_scan_with_traffic" />
-            android:summary="@string/wifi_allow_scan_with_traffic_summary"/>
+            android:title="@string/wifi_allow_scan_with_traffic" 
+	    android:summary="@string/wifi_allow_scan_with_traffic_summary" />
 
         <ListPreference
             android:key="select_logd_size"
