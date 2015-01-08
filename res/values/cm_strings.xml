@@ -425,6 +425,11 @@
 
     <string name="settings_reset_button">Reset</string>
 
+    <!-- Title of dialog asking user to confirm before enabling UMS. [CHAR LIMIT=48] -->
+    <string name="usb_settings_enable_ums_title">Enable USB storage?</string>
+    <!-- Message of dialog asking user to confirm before enabling UMS. [CHAR LIMIT=NONE] -->
+    <string name="usb_settings_enable_ums_message">System components and apps rely on primary storage always being available. This feature breaks that functionality. It is strongly recommended to use MTP instead. Are you sure you want to enable USB storage?</string>
+
     <!-- Voice Wakeup -->
     <string name="voice_wakeup_settings_title">Voice wakeup</string>
     <string name="voice_wakeup_retrain_title">Retrain your voice</string>
