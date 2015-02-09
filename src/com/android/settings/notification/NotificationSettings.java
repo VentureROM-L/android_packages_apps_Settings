@@ -28,6 +28,7 @@ import android.content.pm.ServiceInfo;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.hardware.CmHardwareManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -86,7 +87,7 @@ public class NotificationSettings extends SettingsPreferenceFragment implements 
 
     private final VolumePreferenceCallback mVolumeCallback = new VolumePreferenceCallback();
     private final H mHandler = new H();
-    private final SettingsObserver mSettingsObserver = new SettingsObserver();
+    private final SettingsObserver mSettingsObserver = new SettingsOfbserver();
     private final Receiver mReceiver = new Receiver();
     private final ArrayList<VolumeSeekBarPreference> mVolumePrefs = new ArrayList<>();
 

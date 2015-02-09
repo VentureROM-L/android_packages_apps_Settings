@@ -36,8 +36,6 @@ LOCAL_AAPT_FLAGS := \
     --auto-add-overlay \
     --extra-packages android.support.v7.cardview
 
-LOCAL_JAVA_LIBRARIES += org.cyanogenmod.hardware
-
 include $(BUILD_PACKAGE)
 
 # Use the following include to make our test apk.

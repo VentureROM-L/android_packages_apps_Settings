@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.hardware.CmHardwareManager;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.Handler;
@@ -44,8 +45,6 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settings.cyanogenmod.ButtonBacklightBrightness;
-
-import org.cyanogenmod.hardware.KeyDisabler;
 
 public class HardwareButtonSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -132,6 +131,9 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         final boolean hasAssistKey = (deviceKeys & KEY_MASK_ASSIST) != 0;
         final boolean hasAppSwitchKey = (deviceKeys & KEY_MASK_APP_SWITCH) != 0;
 
+        final CmHardwareManager cmHardwareManager =
+                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
+
         boolean hasAnyBindableKey = false;
         final PreferenceCategory powerCategory =
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_POWER);
@@ -160,7 +162,7 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         // Only visible on devices that does not have a navigation bar already,
         // and don't even try unless the existing keys can be disabled
         boolean needsNavigationBar = false;
-        if (isKeyDisablerSupported()) {
+        if (cmHardwareManager.isSupported(CmHardwareManager.FEATURE_KEY_DISABLE)) {
             try {
                 IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
                 needsNavigationBar = wm.needsNavigationBar();
@@ -398,7 +400,9 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
 
         Settings.System.putInt(context.getContentResolver(),
                 Settings.System.DEV_FORCE_SHOW_NAVBAR, enabled ? 1 : 0);
-        KeyDisabler.setActive(enabled);
+        CmHardwareManager cmHardwareManager =
+                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
+        cmHardwareManager.set(CmHardwareManager.FEATURE_KEY_DISABLE, enabled);
 
         /* Save/restore button timeouts to disable them in softkey mode */
         Editor editor = prefs.edit();
