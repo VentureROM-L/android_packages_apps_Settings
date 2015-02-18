@@ -85,6 +85,7 @@ import com.android.settings.deviceinfo.Memory;
 import com.android.settings.deviceinfo.UsbSettings;
 import com.android.settings.fuelgauge.BatterySaverSettings;
 import com.android.settings.fuelgauge.PowerUsageSummary;
+import com.android.settings.livedisplay.LiveDisplay;
 import com.android.settings.notification.NotificationAppList;
 import com.android.settings.notification.OtherSoundSettings;
 import com.android.settings.profiles.NFCProfileTagCallback;
@@ -317,7 +318,8 @@ public class SettingsActivity extends Activity
             ApnSettings.class.getName(),
             VentureTweaks.class.getName(),
             BlacklistSettings.class.getName(),
-            ProfilesSettings.class.getName()
+            ProfilesSettings.class.getName(),
+            LiveDisplay.class.getName()
     };
 
 
