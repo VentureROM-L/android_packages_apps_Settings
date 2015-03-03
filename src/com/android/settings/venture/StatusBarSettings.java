@@ -29,6 +29,7 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -118,6 +119,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment implements
         mStatusBarBatteryShowPercent.setValue(String.valueOf(batteryShowPercent));
         mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
         mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
+
+        if (TelephonyManager.getDefault().getPhoneCount() <= 1) {
+            removePreference(Settings.System.STATUS_BAR_MSIM_SHOW_EMPTY_ICONS);
+        }
 
         mQuickPulldown = (ListPreference) prefSet.findPreference(PRE_QUICK_PULLDOWN);
         mSmartPulldown = (ListPreference) prefSet.findPreference(PREF_SMART_PULLDOWN);
