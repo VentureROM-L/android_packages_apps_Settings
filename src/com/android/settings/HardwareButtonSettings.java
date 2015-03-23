@@ -476,7 +476,9 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
     }
 
     public static void restoreKeyDisabler(Context context) {
-        if (!isKeyDisablerSupported()) {
+        CmHardwareManager cmHardwareManager =
+                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
+        if (!cmHardwareManager.isSupported(CmHardwareManager.FEATURE_KEY_DISABLE)) {
             return;
         }
 
