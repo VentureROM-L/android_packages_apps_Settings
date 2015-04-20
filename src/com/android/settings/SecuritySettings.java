@@ -115,7 +115,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
             KEY_POWER_INSTANTLY_LOCKS, KEY_SHOW_PASSWORD, KEY_TOGGLE_INSTALL_APPLICATIONS };
 
     // Only allow one trust agent on the platform.
-    private static final boolean ONLY_ONE_TRUST_AGENT = true;
+    private static final boolean ONLY_ONE_TRUST_AGENT = false;
 
     // CyanogenMod Additions
     private static final String KEY_APP_SECURITY_CATEGORY = "app_security";
