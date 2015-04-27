@@ -42,7 +42,7 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
-public class ButtonSettings extends SettingsPreferenceFragment implements
+public class HardwareButtonSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "SystemSettings";
 
@@ -96,7 +96,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.button_settings);
+        addPreferencesFromResource(R.xml.hardware_button_settings);
 
         final Resources res = getResources();
         final ContentResolver resolver = getActivity().getContentResolver();
