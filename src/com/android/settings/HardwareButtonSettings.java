@@ -387,11 +387,6 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
             handleActionListChange(mAppSwitchLongPressAction, newValue,
                     Settings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION);
             return true;
-        } else if (preference == mVolumeKeyCursorControl) {
-            handleActionListChange(mVolumeKeyCursorControl, newValue,
-                    Settings.System.VOLUME_KEY_CURSOR_CONTROL);
-            return true;
->>>>>>> 6291048... Forward port Search button configuration:src/com/android/settings/ButtonSettings.java
         }
         return false;
     }
@@ -409,18 +404,18 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         Editor editor = prefs.edit();
 
         if (enabled) {
-            int currentBrightness = Settings.System.getInt(context.getContentResolver(),
-                    Settings.System.BUTTON_BRIGHTNESS, defaultBrightness);
+            int currentBrightness = Settings.Secure.getInt(context.getContentResolver(),
+                    Settings.Secure.BUTTON_BRIGHTNESS, defaultBrightness);
             if (!prefs.contains("pre_navbar_button_backlight")) {
                 editor.putInt("pre_navbar_button_backlight", currentBrightness);
             }
-            Settings.System.putInt(context.getContentResolver(),
-                    Settings.System.BUTTON_BRIGHTNESS, 0);
+            Settings.Secure.putInt(context.getContentResolver(),
+                    Settings.Secure.BUTTON_BRIGHTNESS, 0);
         } else {
             int oldBright = prefs.getInt("pre_navbar_button_backlight", -1);
             if (oldBright != -1) {
-                Settings.System.putInt(context.getContentResolver(),
-                        Settings.System.BUTTON_BRIGHTNESS, oldBright);
+                Settings.Secure.putInt(context.getContentResolver(),
+                        Settings.Secure.BUTTON_BRIGHTNESS, oldBright);
                 editor.remove("pre_navbar_button_backlight");
             }
         }
