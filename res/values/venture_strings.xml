@@ -178,4 +178,6 @@
     <string name="volume_keys_category">Volume keys</string>
     <string name="hardware_button_title">Hardware buttons</string>
     <string name="hardware_button_summary">Change various actions of your device hardware buttons</string>
+
+    <string name="category_calibration">Calibration</string>
 </resources>
