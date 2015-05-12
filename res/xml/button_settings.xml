@@ -21,7 +21,7 @@
 
     <PreferenceScreen
         android:key="hardware_button_settings"
-        android:string="@string/hardware_button_title"
+        android:title="@string/hardware_button_title"
         android:summary="@string/hardware_button_summary"
         android:fragment="com.android.settings.HardwareButtonSettings" />
 
