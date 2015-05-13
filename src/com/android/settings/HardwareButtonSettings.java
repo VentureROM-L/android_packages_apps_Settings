@@ -308,22 +308,6 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
 
     }
 
-    private CheckBoxPreference initCheckBox(String key, boolean checked) {
-        CheckBoxPreference checkBoxPreference = (CheckBoxPreference) getPreferenceManager()
-                .findPreference(key);
-        if (checkBoxPreference != null) {
-            checkBoxPreference.setChecked(checked);
-            checkBoxPreference.setOnPreferenceChangeListener(this);
-        }
-        return checkBoxPreference;
-    }
-
-    private void handleCheckBoxChange(CheckBoxPreference pref, Object newValue, String setting) {
-        Boolean value = (Boolean) newValue;
-        int intValue = (value) ? 1 : 0;
-        Settings.System.putInt(getContentResolver(), setting, intValue);
-    }
-
     private SwitchPreference initSwitch(String key, boolean checked) {
         SwitchPreference switchPreference = (SwitchPreference) getPreferenceManager()
                 .findPreference(key);
@@ -408,18 +392,18 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         Editor editor = prefs.edit();
 
         if (enabled) {
-            int currentBrightness = Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.BUTTON_BRIGHTNESS, defaultBrightness);
+            int currentBrightness = Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.BUTTON_BRIGHTNESS, defaultBrightness);
             if (!prefs.contains("pre_navbar_button_backlight")) {
                 editor.putInt("pre_navbar_button_backlight", currentBrightness);
             }
-            Settings.Secure.putInt(context.getContentResolver(),
-                    Settings.Secure.BUTTON_BRIGHTNESS, 0);
+            Settings.System.putInt(context.getContentResolver(),
+                    Settings.System.BUTTON_BRIGHTNESS, 0);
         } else {
             int oldBright = prefs.getInt("pre_navbar_button_backlight", -1);
             if (oldBright != -1) {
-                Settings.Secure.putInt(context.getContentResolver(),
-                        Settings.Secure.BUTTON_BRIGHTNESS, oldBright);
+                Settings.System.putInt(context.getContentResolver(),
+                        Settings.System.BUTTON_BRIGHTNESS, oldBright);
                 editor.remove("pre_navbar_button_backlight");
             }
         }
@@ -439,8 +423,6 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         /* Disable hw-key options if they're disabled */
         final PreferenceCategory homeCategory =
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_HOME);
-        final PreferenceCategory backCategory =
-                (PreferenceCategory) prefScreen.findPreference(CATEGORY_BACK);
         final PreferenceCategory menuCategory =
                 (PreferenceCategory) prefScreen.findPreference(CATEGORY_MENU);
         final PreferenceCategory assistCategory =

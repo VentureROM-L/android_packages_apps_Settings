@@ -38,7 +38,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.settings.R;
-import com.android.settings.ButtonSettings;
+import com.android.settings.HardwareButtonSettings;
 
 public class ButtonBacklightBrightness extends DialogPreference implements
         SeekBar.OnSeekBarChangeListener {
@@ -216,11 +216,11 @@ public class ButtonBacklightBrightness extends DialogPreference implements
         final int deviceKeys = res.getInteger(
                 com.android.internal.R.integer.config_deviceHardwareKeys);
         // All hardware keys besides volume and camera can possibly have a backlight
-        boolean hasBacklightKey = (deviceKeys & ButtonSettings.KEY_MASK_HOME) != 0
-                || (deviceKeys & ButtonSettings.KEY_MASK_BACK) != 0
-                || (deviceKeys & ButtonSettings.KEY_MASK_MENU) != 0
-                || (deviceKeys & ButtonSettings.KEY_MASK_ASSIST) != 0
-                || (deviceKeys & ButtonSettings.KEY_MASK_APP_SWITCH) != 0;
+        boolean hasBacklightKey = (deviceKeys & HardwareButtonSettings.KEY_MASK_HOME) != 0
+                || (deviceKeys & HardwareButtonSettings.KEY_MASK_BACK) != 0
+                || (deviceKeys & HardwareButtonSettings.KEY_MASK_MENU) != 0
+                || (deviceKeys & HardwareButtonSettings.KEY_MASK_ASSIST) != 0
+                || (deviceKeys & HardwareButtonSettings.KEY_MASK_APP_SWITCH) != 0;
         boolean hasBacklight = res.getInteger(
                 com.android.internal.R.integer.config_buttonBrightnessSettingDefault) > 0;
 
@@ -258,13 +258,13 @@ public class ButtonBacklightBrightness extends DialogPreference implements
     }
 
     private int getTimeout() {
-        return Settings.Secure.getInt(mResolver,
-                Settings.Secure.BUTTON_BACKLIGHT_TIMEOUT, DEFAULT_BUTTON_TIMEOUT * 1000) / 1000;
+        return Settings.System.getInt(mResolver,
+                Settings.System.BUTTON_BACKLIGHT_TIMEOUT, DEFAULT_BUTTON_TIMEOUT * 1000) / 1000;
     }
 
     private void applyTimeout(int timeout) {
-        Settings.Secure.putInt(mResolver,
-                Settings.Secure.BUTTON_BACKLIGHT_TIMEOUT, timeout * 1000);
+        Settings.System.putInt(mResolver,
+                Settings.System.BUTTON_BACKLIGHT_TIMEOUT, timeout * 1000);
     }
 
     private void updateBrightnessPreview() {
@@ -394,11 +394,11 @@ public class ButtonBacklightBrightness extends DialogPreference implements
             } else if (mSeekBar != null && !persisted) {
                 return mSeekBar.getProgress();
             }
-            return Settings.Secure.getInt(mResolver, mSetting, mDefaultBrightness);
+            return Settings.System.getInt(mResolver, mSetting, mDefaultBrightness);
         }
 
         public void applyBrightness() {
-            Settings.Secure.putInt(mResolver, mSetting, getBrightness(false));
+            Settings.System.putInt(mResolver, mSetting, getBrightness(false));
         }
 
         /* Behaviors when it's a seekbar */
