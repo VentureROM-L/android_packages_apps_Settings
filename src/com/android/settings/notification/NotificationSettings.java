@@ -37,6 +37,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.UserHandle;
 import android.os.Vibrator;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -87,7 +88,7 @@ public class NotificationSettings extends SettingsPreferenceFragment implements 
 
     private final VolumePreferenceCallback mVolumeCallback = new VolumePreferenceCallback();
     private final H mHandler = new H();
-    private final SettingsObserver mSettingsObserver = new SettingsOfbserver();
+    private final SettingsObserver mSettingsObserver = new SettingsObserver();
     private final Receiver mReceiver = new Receiver();
     private final ArrayList<VolumeSeekBarPreference> mVolumePrefs = new ArrayList<>();
 
@@ -127,9 +128,7 @@ public class NotificationSettings extends SettingsPreferenceFragment implements 
 
         addPreferencesFromResource(R.xml.notification_settings);
 
-        final PreferenceCategory volumes = (PreferenceCategory) findPreference(KEY_VOLUMES);
-        final PreferenceCategory sounds = (PreferenceCategory) findPreference(KEY_SOUND);
-        final PreferenceCategory vibrate = (PreferenceCategory) findPreference(KEY_VIBRATE);
+        final PreferenceCategory sound = (PreferenceCategory) findPreference(KEY_SOUND);
 
         initVolumePreference(KEY_MEDIA_VOLUME, AudioManager.STREAM_MUSIC,
                 com.android.internal.R.drawable.ic_audio_vol_mute);

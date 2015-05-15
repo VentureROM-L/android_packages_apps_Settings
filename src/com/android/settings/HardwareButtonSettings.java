@@ -443,9 +443,6 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         if (homeCategory != null) {
             homeCategory.setEnabled(!navbarEnabled);
         }
-        if (backCategory != null) {
-            backCategory.setEnabled(!navbarEnabled);
-        }
         if (menuCategory != null) {
             menuCategory.setEnabled(!navbarEnabled);
         }

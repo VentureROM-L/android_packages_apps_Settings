@@ -769,13 +769,6 @@ public final class Utils {
         return getScreenType(context) == DEVICE_TABLET;
     }
 
-    /* returns whether the device has volume rocker or not. */
-    public static boolean hasVolumeRocker(Context context) {
-        final int deviceKeys = context.getResources().getInteger(
-                com.android.internal.R.integer.config_deviceHardwareKeys);
-        return (deviceKeys & HardwareButtonSettings.KEY_MASK_VOLUME) != 0;
-    }
-
     /**
      * Start a new instance of the activity, showing only the given fragment.
      * When launched in this mode, the given preference fragment will be instantiated and fill the

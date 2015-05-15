@@ -23,6 +23,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.ContentObserver;
+import android.hardware.CmHardwareManager;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,7 +37,6 @@ import android.telephony.TelephonyManager;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-import com.android.settings.hardware.VibratorIntensity;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 
@@ -112,7 +112,7 @@ public class OtherSoundSettings extends SettingsPreferenceFragment implements In
             TYPE_SYSTEM, KEY_VIBRATION_INTENSITY, System.HAPTIC_FEEDBACK_ENABLED, DEFAULT_ON) {
         @Override
         public boolean isApplicable(Context context) {
-            return VibratorIntensity.isSupported();
+            return hasVibratorIntensity(context);
         }
     };
 
@@ -209,6 +209,15 @@ public class OtherSoundSettings extends SettingsPreferenceFragment implements In
     private static boolean hasHaptic(Context context) {
         final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         return vibrator != null && vibrator.hasVibrator();
+    }
+
+    private static boolean hasVibratorIntensity(Content context) {
+        CmHardwareManager cmHardwareManager =
+                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
+        if (!cmHardwareManager.isSupported(CmHardwareManager.FEATURE_VIBRATOR)) {
+            return false;
+        }
+        return true;
     }
 
     // === Callbacks ===
