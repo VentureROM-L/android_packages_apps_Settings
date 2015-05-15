@@ -110,6 +110,7 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
 
     private PreferenceCategory mNavigationPreferencesCat;
 
+    private Context mContext;
     private Handler mHandler;
 
     @Override
@@ -121,6 +122,7 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         final Resources res = getResources();
         final ContentResolver resolver = getActivity().getContentResolver();
         final PreferenceScreen prefScreen = getPreferenceScreen();
+        mContext = getActivity();
 
         final int deviceKeys = getResources().getInteger(
                 com.android.internal.R.integer.config_deviceHardwareKeys);
@@ -132,7 +134,7 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         final boolean hasAppSwitchKey = (deviceKeys & KEY_MASK_APP_SWITCH) != 0;
 
         final CmHardwareManager cmHardwareManager =
-                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
+                (CmHardwareManager) mContext.getSystemService(Context.CMHW_SERVICE);
 
         boolean hasAnyBindableKey = false;
         final PreferenceCategory powerCategory =
@@ -385,7 +387,7 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         Settings.System.putInt(context.getContentResolver(),
                 Settings.System.DEV_FORCE_SHOW_NAVBAR, enabled ? 1 : 0);
         CmHardwareManager cmHardwareManager =
-                (CmHardwareManager) getSystemService(Context.CMHW_SERVICE);
+                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
         cmHardwareManager.set(CmHardwareManager.FEATURE_KEY_DISABLE, enabled);
 
         /* Save/restore button timeouts to disable them in softkey mode */
