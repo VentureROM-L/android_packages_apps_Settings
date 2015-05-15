@@ -385,7 +385,7 @@ public class HardwareButtonSettings extends SettingsPreferenceFragment implement
         Settings.System.putInt(context.getContentResolver(),
                 Settings.System.DEV_FORCE_SHOW_NAVBAR, enabled ? 1 : 0);
         CmHardwareManager cmHardwareManager =
-                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
+                (CmHardwareManager) getSystemService(Context.CMHW_SERVICE);
         cmHardwareManager.set(CmHardwareManager.FEATURE_KEY_DISABLE, enabled);
 
         /* Save/restore button timeouts to disable them in softkey mode */

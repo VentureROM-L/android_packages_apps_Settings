@@ -211,7 +211,7 @@ public class OtherSoundSettings extends SettingsPreferenceFragment implements In
         return vibrator != null && vibrator.hasVibrator();
     }
 
-    private static boolean hasVibratorIntensity(Content context) {
+    private static boolean hasVibratorIntensity(Context context) {
         CmHardwareManager cmHardwareManager =
                 (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
         if (!cmHardwareManager.isSupported(CmHardwareManager.FEATURE_VIBRATOR)) {

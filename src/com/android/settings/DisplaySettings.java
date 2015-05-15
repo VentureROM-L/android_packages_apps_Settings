@@ -156,7 +156,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mAutoBrightnessPreference.setOnPreferenceChangeListener(this);
         } else {
             if (mAutoBrightnessPreference != null) {
-                getPreference().removePreference(mAutoBrightnessPreference);
+                getPreferenceScreen().removePreference(mAutoBrightnessPreference);
                 mAutoBrightnessPreference = null;
             }
         }
@@ -166,7 +166,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mLiftToWakePreference.setOnPreferenceChangeListener(this);
         } else {
             if (mLiftToWakePreference != null) {
-                getPreference().removePreference(mLiftToWakePreference);
+                getPreferenceScreen().removePreference(mLiftToWakePreference);
                 mLiftToWakePreference = null;
             }
         }
